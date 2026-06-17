@@ -97,10 +97,6 @@ def scanHuman():
     print("No human found in this sweep.")
     return False
 
-
-def level1():
-	pass
-
 def level2():
 	while True:
 		servo1.set_angle(160)
@@ -108,6 +104,15 @@ def level2():
 		servo1.set_angle(130)
 		time.sleep(0.5)
 		if gameOver == False:
+			break
+			
+def level3():
+	while True:
+		differentialDrive.straight(5, 0.7)
+		sleep(0.5)
+		differentialDrive.straight(-5, 0.7)
+		sleep(0.5)
+		if gamerOver == False:
 			break
 
 def update_oledDisplay():
