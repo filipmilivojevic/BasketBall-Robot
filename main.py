@@ -5,7 +5,8 @@ from machine import Pin, I2C, PWM
 from XRPLib.imu import IMU
 from ssd1306 import *
 import math
-import XRPlib.servo import Servo
+from XRPLib.servo import Servo
+
 
 #Hardware Vars
 
@@ -40,6 +41,7 @@ def scanHuman():
 
     # spin in micro-steps to find the person
     for i in range(180):
+        
         distance = rangefinder.get_distance()
 
         # detect torso within standard range
@@ -129,6 +131,7 @@ def update_oledDisplay():
 def ledBlinks():
     pass
 
+
 def playNote(frequency, duration, pause):
     global buzzer
     buzzer.duty_u16(5000)
@@ -156,10 +159,12 @@ def finishGame():
             playNote(freq, dur, pause)  
 
 # Main
+scanHuman()
+time.sleep(10)
+
 while not gameOver:
     update_oledDisplay()
     scoredPoint()
     finishGame()
     time.sleep(0.01)
  
-
