@@ -94,9 +94,10 @@ def scanHuman():
         drivetrain.turn(90)
         time.sleep(0.2)
         
-        # 4. sound cue that it is ready and to stop the function
+        # sound cue that it is ready and to stop the function
         playNote(880, 0.1, 0.02)
         playNote(1109, 0.15, 0.02)
+        servo1.set_angle(180)
         drivetrain.stop()
         return True
         
@@ -106,18 +107,23 @@ def scanHuman():
 def level2():
 	while True:
 		servo1.set_angle(160)
-		time.sleep(0.5)
+		time.sleep(0.3)
 		servo1.set_angle(130)
-		time.sleep(0.5)
+		time.sleep(0.2)
 		if gameOver == False:
 			break
 			
 def level3():
 	while True:
-		differentialDrive.straight(5, 0.7)
-		sleep(0.5)
-		differentialDrive.straight(-5, 0.7)
-		sleep(0.5)
+		drivetrain.straight(5, 0.7)
+		time.sleep(0.3)
+		drivetrain.straight(-5, 0.7)
+		time.sleep(0.2)
+		
+		servo1.set_angle(160)
+		time.sleep(0.3)
+		servo1.set_angle(130)
+		time.sleep(0.2)
 		if gameOver == False:
 			break
 
@@ -135,8 +141,7 @@ def update_oledDisplay():
         lastTick = time.time()
 	
 def ledBlinks():
-    
-
+    pass
 
 def playNote(frequency, duration, pause):
     global buzzer
@@ -159,7 +164,7 @@ def scoredPoint():
     if ext_button_pin.value() == 0:
         time.sleep(1)
         score = score + 1
-		board.set_rgb_led(0,255,0)
+        board.set_rgb_led(0,255,0)
         for note in basket_notes:
 		    playNote(note, 0.08, 0.02)
 
@@ -169,7 +174,7 @@ def finishGame():
     global gameOver
     if timeSeconds == 0:
         gameOver = True
-		board.set_rgb_led(255,0,0)
+        board.set_rgb_led(255,0,0)
         for freq, dur, pause in high_score_melody:
             playNote(freq, dur, pause)  
 
@@ -180,8 +185,8 @@ time.sleep(10)
 while not gameOver:
     update_oledDisplay()
     scoredPoint()
-	checkForLevel()
+    checkForLevel()
     finishGame()
-	board.set_rgb_led(0,0,0)
+    board.set_rgb_led(0,0,0)
     time.sleep(0.01)
  
