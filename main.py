@@ -167,6 +167,11 @@ def finishGame():
 # Main
 scanHuman()
 time.sleep(10)
+if score >= 3 and score < 6:
+	level2()
+elif score >= 6:
+	level3()
+else score > 3
 
 while not gameOver:
     update_oledDisplay()
