@@ -40,8 +40,6 @@ def scanHuman():
 
     # spin in micro-steps to find the person
     for i in range(180):
-        dontFallTable() # make sure it doesnt just roll off
-        
         distance = rangefinder.get_distance()
 
         # detect torso within standard range
@@ -130,22 +128,6 @@ def update_oledDisplay():
 	
 def ledBlinks():
     pass
-
-def dontFallTable():
-    # 0.2 means very little light is reflecting back (empty air/edge)
-    EDGE_THRESHOLD = 0.2 
-
-    if reflectance.get_left() < EDGE_THRESHOLD or reflectance.get_right() < EDGE_THRESHOLD:
-        drivetrain.stop()
-        print("EMERGENCY STOP: Table edge detected!")
-        
-        # play an alarm sound
-        for _ in range(3):
-            playNote(150, 0.1, 0.05)
-            
-        # back up safely to get away from the edge
-        drivetrain.straight(-5, 0.3)
-        drivetrain.stop()
 
 def playNote(frequency, duration, pause):
     global buzzer
