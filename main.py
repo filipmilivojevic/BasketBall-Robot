@@ -6,6 +6,9 @@ from XRPLib.imu import IMU
 from ssd1306 import *
 import math
 from XRPLib.servo import Servo
+from XRPLib.differential_drive import DifferentialDrive
+from XRPLib.rangefinder import Rangefinder
+
 
 
 #Hardware Vars
@@ -17,6 +20,8 @@ ext_led = Pin(5, Pin.OUT)
 ext_button_pin = Pin(4, Pin.IN, Pin.PULL_UP)
 BUZZER_PIN = 15
 buzzer = PWM(Pin(BUZZER_PIN, Pin.OUT))
+rangefinder = Rangefinder.get_default_rangefinder()
+drivetrain = DifferentialDrive.get_default_differential_drive()
 
 
 
@@ -42,7 +47,7 @@ def scanHuman():
     # spin in micro-steps to find the person
     for i in range(180):
         
-        distance = rangefinder.get_distance()
+        distance = rangefinder.distance()
 
         # detect torso within standard range
         if 20 < distance < 80:
