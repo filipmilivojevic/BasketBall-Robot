@@ -135,7 +135,7 @@ def update_oledDisplay():
         lastTick = time.time()
 	
 def ledBlinks():
-    pass
+    
 
 
 def playNote(frequency, duration, pause):
@@ -146,12 +146,20 @@ def playNote(frequency, duration, pause):
     buzzer.duty_u16(0)
     time.sleep(pause)
 
+def checkForLevel():
+	if score >= 3 and score < 6:
+		level2()
+	elif score >= 6:
+		level3()
+	elif score > 3:
+		pass
 
 def scoredPoint():
     global score
     if ext_button_pin.value() == 0:
         time.sleep(1)
         score = score + 1
+		board.set_rgb_led(0,255,0)
         for note in basket_notes:
 		    playNote(note, 0.08, 0.02)
 
@@ -161,21 +169,19 @@ def finishGame():
     global gameOver
     if timeSeconds == 0:
         gameOver = True
+		board.set_rgb_led(255,0,0)
         for freq, dur, pause in high_score_melody:
             playNote(freq, dur, pause)  
 
 # Main
 scanHuman()
 time.sleep(10)
-if score >= 3 and score < 6:
-	level2()
-elif score >= 6:
-	level3()
-else score > 3
 
 while not gameOver:
     update_oledDisplay()
     scoredPoint()
+	checkForLevel()
     finishGame()
+	board.set_rgb_led(0,0,0)
     time.sleep(0.01)
  
