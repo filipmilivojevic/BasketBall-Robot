@@ -22,6 +22,8 @@ BUZZER_PIN = 15
 buzzer = PWM(Pin(BUZZER_PIN, Pin.OUT))
 rangefinder = Rangefinder.get_default_rangefinder()
 drivetrain = DifferentialDrive.get_default_differential_drive()
+imu = IMU.get_default_imu()
+imu.calibrate(1)
 
 
 
@@ -50,13 +52,12 @@ def scanHuman():
         distance = rangefinder.distance()
 
         # detect torso within standard range
-        if 20 < distance < 80:
+        if 20 < distance < 35:
             # get the left edge
             firstYaw = imu.get_yaw()
             
             # keep turning until the sensor clears the right edge
-            while rangefinder.get_distance() < 80:
-                dontFallTable()
+            while rangefinder.distance() < 35:
                 drivetrain.turn(2)
                 time.sleep(0.05)
                 
