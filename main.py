@@ -5,6 +5,7 @@ from machine import Pin, I2C, PWM
 from XRPLib.imu import IMU
 from ssd1306 import *
 import math
+import XRPlib.servo import Servo
 
 #Hardware Vars
 
@@ -27,6 +28,8 @@ high_score_melody = [(523, 0.10, 0.03),(659, 0.10, 0.03),(784, 0.10, 0.03),(1047
 userFound = False
 gameOver = False
 lastTick = time.time()
+servo1 = Servo.get_default_servo(1)
+
 #functions
 def scanHuman():
     print("Scanning for human torso...")
@@ -99,7 +102,13 @@ def level1():
 	pass
 
 def level2():
-	pass
+	while True:
+		servo1.set_angle(160)
+		time.sleep(0.5)
+		servo1.set_angle(130)
+		time.sleep(0.5)
+		if gameOver == False:
+			break
 
 def update_oledDisplay():
     global score
