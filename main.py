@@ -112,7 +112,7 @@ def level3():
 		sleep(0.5)
 		differentialDrive.straight(-5, 0.7)
 		sleep(0.5)
-		if gamerOver == False:
+		if gameOver == False:
 			break
 
 def update_oledDisplay():
