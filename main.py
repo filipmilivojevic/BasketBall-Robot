@@ -40,6 +40,7 @@ gameOver = False
 lastTick = time.time()
 servo1 = Servo.get_default_servo(1)
 
+board.wait_for_button()
 #functions
 def scanHuman():
     print("Scanning for human torso...")
