@@ -99,7 +99,7 @@ def scanHuman():
         # sound cue that it is ready and to stop the function
         playNote(880, 0.1, 0.02)
         playNote(1109, 0.15, 0.02)
-        servo1.set_angle(180)
+        servo1.set_angle(120)
         drivetrain.stop()
         return True
         
@@ -108,9 +108,9 @@ def scanHuman():
 
 def level2():
 	while True:
-		servo1.set_angle(160)
+		servo1.set_angle(130)
 		time.sleep(0.3)
-		servo1.set_angle(155)
+		servo1.set_angle(120)
 		time.sleep(0.2)
 		if gameOver == False:
 			break
@@ -122,9 +122,9 @@ def level3():
 		drivetrain.straight(-5, 0.7)
 		time.sleep(0.2)
 		
-		servo1.set_angle(160)
+		servo1.set_angle(120)
 		time.sleep(0.3)
-		servo1.set_angle(155)
+		servo1.set_angle(130)
 		time.sleep(0.2)
 		if gameOver == False:
 			break
@@ -187,6 +187,9 @@ interPin.irq(trigger=Pin.IRQ_FALLING, handler=handle_interrupt)
 
 
 # Main
+
+scanHuman()
+time.sleep(2)
 
 while not gameOver:
     update_oledDisplay()
