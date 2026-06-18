@@ -55,12 +55,12 @@ def scanHuman():
         distance = rangefinder.distance()
 
         # detect torso within standard range
-        if 20 < distance < 35:
+        if 20 < distance < 45:
             # get the left edge
             firstYaw = imu.get_yaw()
             
             # keep turning until the sensor clears the right edge
-            while rangefinder.distance() < 35:
+            while rangefinder.distance() < 45:
                 drivetrain.turn(2)
                 time.sleep(0.05)
                 
