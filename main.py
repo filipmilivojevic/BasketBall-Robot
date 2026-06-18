@@ -110,7 +110,7 @@ def level2():
 	while True:
 		servo1.set_angle(160)
 		time.sleep(0.3)
-		servo1.set_angle(130)
+		servo1.set_angle(155)
 		time.sleep(0.2)
 		if gameOver == False:
 			break
@@ -124,7 +124,7 @@ def level3():
 		
 		servo1.set_angle(160)
 		time.sleep(0.3)
-		servo1.set_angle(130)
+		servo1.set_angle(155)
 		time.sleep(0.2)
 		if gameOver == False:
 			break
@@ -193,6 +193,9 @@ while not gameOver:
     if interTrigger:
         score = score + 1
         interTrigger = False
+        board.set_rgb_led(0,255,0)
+        for note in basket_notes:
+            playNote(note, 0.08, 0.02)
 		
     scoredPoint()
     checkForLevel()
