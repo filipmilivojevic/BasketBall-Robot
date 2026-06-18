@@ -23,11 +23,13 @@ buzzer = PWM(Pin(BUZZER_PIN, Pin.OUT))
 rangefinder = Rangefinder.get_default_rangefinder()
 drivetrain = DifferentialDrive.get_default_differential_drive()
 imu = IMU.get_default_imu()
+interPin = Pin(7, Pin.IN, Pin.PULL_UP)
 imu.calibrate(1)
 
 
 
 #Global Variables
+interTrigger = False
 score = 0
 global timer
 timeSeconds = 30
@@ -140,8 +142,9 @@ def update_oledDisplay():
             timeSeconds = timeSeconds - 1
         lastTick = time.time()
 	
-def ledBlinks():
-    pass
+def handle_interrupt(pin):
+	global interTrigger
+	interTrigger = True
 
 def playNote(frequency, duration, pause):
     global buzzer
@@ -178,12 +181,19 @@ def finishGame():
         for freq, dur, pause in high_score_melody:
             playNote(freq, dur, pause)  
 
+
+
+interPin.irq(trigger=Pin.IRQ_FALLING, handler=handle_interrupt)
+
+
 # Main
-scanHuman()
-time.sleep(10)
 
 while not gameOver:
     update_oledDisplay()
+    if interTrigger:
+        score = score + 1
+        interTrigger = False
+		
     scoredPoint()
     checkForLevel()
     finishGame()
